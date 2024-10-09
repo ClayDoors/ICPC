@@ -1,0 +1,32 @@
+from collections import defaultdict
+from typing import List
+
+
+class Solution:
+    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+        paragraph = paragraph.replace("!"," ") 
+        paragraph = paragraph.replace("?", " ")
+        paragraph = paragraph.replace("'"," ")
+        paragraph = paragraph.replace(","," ")
+        paragraph = paragraph.replace("."," ")
+        paragraph = paragraph.replace(";","")
+        wordList = paragraph.split()
+        for i in range(len(wordList)):
+            wordList[i] = wordList[i].lower()
+        myDict = {}
+        banSet = set(banned)
+        bigString = ""
+        bigInt = 0
+        for word in wordList:
+            myDict[word] = 0
+        for word in wordList:
+            if word not in banSet:
+                myDict[word] = myDict[word] + 1
+        
+        for k,v in myDict.items():
+            if v > bigInt:
+                bigInt = v
+                bigString = k
+        return bigString
+d = Solution()
+print(d.mostCommonWord("Bob hit a ball, the hit BALL flew far after it was hit.",["hit"]))
